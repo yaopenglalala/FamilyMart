@@ -36,6 +36,12 @@ bool Shop::sell(string itemName, float discount){
     } else return false;
 }
 
+/*
+Input a size of new items(can be negative),
+combine new items number and old item number,
+larger or smaller the warehouse size or nothing to do.
+If not able to larger, return false.
+*/
 bool Shop::changeSize(int addNewItem){
     int oldItemNumber = this->warehouse->getItemNumber();
     int newItemNumber = oldItemNumber + addNewItem;

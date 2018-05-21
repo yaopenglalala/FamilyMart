@@ -16,6 +16,9 @@ Warehouse::~Warehouse() {
     cout <<"shop name: "<< this->shopName << ", warehouse size: " << WarehouseUtil::getWareSize(this->sizelevel) << " deconstructor is invoked!" <<endl;
 }
 
+/*
+get the amount of items in warehouse
+*/
 int Warehouse::getItemNumber(){
     int itemNumber = 0;
     map<string, queue<Item *>>::iterator it;
@@ -27,29 +30,31 @@ int Warehouse::getItemNumber(){
     return itemNumber;
 }
 
+/*
+get warehouse size level
+*/
 int Warehouse::getSize() const{
     return this->sizelevel;
 }
 
-int Warehouse::checkSize(){
-    int itemNumber = this->getItemNumber();
-    if (itemNumber >= WarehouseUtil::getWareSize(this->sizelevel)){
-        if (this->sizelevel >= (WarehouseUtil::wareSizeLevels() - 1)){
-            return 3;
-        } else return 2;
-    } else if (this->sizelevel > 0 && itemNumber <= WarehouseUtil::getWareSize(this->sizelevel - 1)){
-        return 1;
-    } else return 0;
-}
-
+/*
+get items to transport
+*/
 map <string, queue<Item *>> * Warehouse::getAllItems(){
     return &(this->productsMap);
 }
 
+/*
+using transport to set items
+*/
 void Warehouse::setAllItem(map <string, queue<Item *>> * allItems){
     this->productsMap = *allItems;
 }
 
+
+/*
+add new item
+*/
 void Warehouse::addItem(Item *item){
     map<string, queue<Item *>>::iterator resIt = this->productsMap.find(item->getName());
     if (resIt != productsMap.end()) {
@@ -62,6 +67,10 @@ void Warehouse::addItem(Item *item){
     }
 }
 
+
+/*
+remove item
+*/
 Item* Warehouse::removeItem(string itemName){
     map<string, queue<Item *>>::iterator resIt = this->productsMap.find(itemName);
     if (resIt != this->productsMap.end()) {
@@ -78,13 +87,17 @@ Item* Warehouse::removeItem(string itemName){
     }
 }
 
+
+/*
+close shop and destroy the warehouse
+*/
 void Warehouse::cleanWarehouse(){
     map<string, queue<Item *>>::iterator it;
     it = this->productsMap.begin();
     while (it != this->productsMap.end()) {
         queue<Item *> list= it->second;
         size_t size = list.size();
-        for (int i = 0; i < size; ++i) {
+        for (size_t i = 0; i < size; ++i) {
             Item * tmp = list.front();
             list.pop();
             delete tmp;
