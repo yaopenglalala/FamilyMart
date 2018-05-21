@@ -3,7 +3,6 @@
 #include "Warehouse.h"
 #include "WarehouseUtil.h"
 
-//#define DEBUG
 using namespace std;
 
 Warehouse::Warehouse(string shopName, int sizelevel){
@@ -22,9 +21,6 @@ int Warehouse::getItemNumber(){
     map<string, queue<Item *>>::iterator it;
     it = this->productsMap.begin();
     while (it != this->productsMap.end()) {
-#ifdef DEBUG
-        cout << "list " << it->first << " "<<it->second.size() << endl;
-#endif
         itemNumber += it->second.size();
         it ++;
     }
@@ -37,9 +33,6 @@ int Warehouse::getSize() const{
 
 int Warehouse::checkSize(){
     int itemNumber = this->getItemNumber();
-#ifdef DEBUG
-    cout <<"items number: "<< itemNumber << endl;
-#endif
     if (itemNumber >= WarehouseUtil::getWareSize(this->sizelevel)){
         if (this->sizelevel >= (WarehouseUtil::wareSizeLevels() - 1)){
             return 3;
@@ -58,9 +51,6 @@ void Warehouse::setAllItem(map <string, queue<Item *>> * allItems){
 }
 
 void Warehouse::addItem(Item *item){
-#ifdef DEBUG
-    cout << "add: " <<item->getName() << " "<< item << endl;
-#endif
     map<string, queue<Item *>>::iterator resIt = this->productsMap.find(item->getName());
     if (resIt != productsMap.end()) {
         queue<Item *> *itemList = &resIt->second;
@@ -75,16 +65,10 @@ void Warehouse::addItem(Item *item){
 Item* Warehouse::removeItem(string itemName){
     map<string, queue<Item *>>::iterator resIt = this->productsMap.find(itemName);
     if (resIt != this->productsMap.end()) {
-#ifdef DEBUG
-        cout << "remove: find " << itemName << endl;
-#endif
         queue<Item *>* itemList = &(resIt->second);
         if (itemList->size() > 0){
             Item* resItem = itemList->front();
             itemList->pop();
-#ifdef DEBUG
-            cout << "remove: " << resItem<< endl;
-#endif
             return resItem;
         } else {
             return NULL;
@@ -95,9 +79,6 @@ Item* Warehouse::removeItem(string itemName){
 }
 
 void Warehouse::cleanWarehouse(){
-#ifdef DEBUG
-    cout << "warehouse close" << endl;
-#endif
     map<string, queue<Item *>>::iterator it;
     it = this->productsMap.begin();
     while (it != this->productsMap.end()) {

@@ -1,7 +1,3 @@
-//
-// Created by 妖风 on 2018/5/19.
-//
-
 #include "WarehouseUtil.h"
 
 const int WarehouseUtil::sizelevels = 3;

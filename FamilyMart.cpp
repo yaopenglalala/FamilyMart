@@ -1,7 +1,3 @@
-//
-// Created by 妖风 on 2018/5/19.
-//
-
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -9,8 +5,6 @@
 #include "FamilyMart.h"
 #include "WarehouseUtil.h"
 #include "Shop.h"
-
-//#define DEBUG
 
 FamilyMart* FamilyMart::fmInstance = NULL;
 
@@ -53,10 +47,6 @@ void FamilyMart::shopInit(string fileName) {
             stringstream stringLineStream(stringLine);
             string lineHead;
             stringLineStream >> lineHead;
-            #ifdef DEBUG
-            cout << stringLine <<endl;
-            cout << lineHead << endl;
-            #endif // DEBUG
             if (lineHead.substr(0, 4) == "SHOP"){
                 treatedShop == NULL;
 
@@ -70,9 +60,6 @@ void FamilyMart::shopInit(string fileName) {
                 }
 
                 if (treatedShop == NULL){
-#ifdef DEBUG
-cout << lineHead << " " << totalNumber <<endl;
-#endif // DEBUG
                     int wareSize = 0;
                     while(totalNumber > WarehouseUtil::getWareSize(wareSize)){
                         wareSize++;
@@ -86,23 +73,13 @@ cout << lineHead << " " << totalNumber <<endl;
             } else {
                 stringstream stringStreamItem;
                 stringStreamItem << stringLine;
-#ifdef DEBUG
-                cout << stringLine <<endl;
-#endif // DEBUG
                 string itemName;
                 float  price;
                 int lifeDay;
                 string productDate;
                 stringStreamItem >> itemName >> price >> lifeDay >> productDate;
 
-#ifdef DEBUG
-                cout <<"init start: "<< itemName << " " << price << " " << lifeDay <<" "<< productDate<< endl;
-#endif
                 Item* item = new Item(itemName, price, lifeDay, productDate);
-#ifdef DEBUG
-                cout << treatedShop << endl;
-                cout <<"init: "<< item->getName() << " " << item->getPrice() << " " << item->getLifeDay()<< endl;
-#endif
                 treatedShop->purchase(item);
             }
         }
@@ -112,28 +89,15 @@ cout << lineHead << " " << totalNumber <<endl;
 }
 
 bool FamilyMart::solvePurchase(string fileName){
-#ifdef DEBUG
-    cout << fileName << endl;
-//    for (int i = 0; i < 75; i++){
-//        Item* item3 = new Item("test1", i , i, "20000");
-//        this->shopList[0]->purchase(item3);
-//    }
-#endif
     ifstream fileinput(fileName);
     string stringLine;
     string lineHead;
     Shop* treatedShop = this->shopList[0];
     if (fileinput.is_open()){//file exists
         while (getline(fileinput, stringLine)){//get line
-#ifdef DEBUG
-            cout << stringLine << endl;
-#endif
             stringstream stringLineStream;
             stringLineStream << stringLine;
             stringLineStream >> lineHead;
-#ifdef DEBUG
-            cout <<"linehead : " <<lineHead << endl;
-#endif
             if (lineHead == "PURCHASE"){
                 int totalNumber;
                 string shopname;
@@ -156,9 +120,6 @@ bool FamilyMart::solvePurchase(string fileName){
                 string productDate;
                 stringLineStream >> price >> lifeDay >> productDate;
                 Item* item = new Item(itemName, price, lifeDay, productDate);
-#ifdef DEBUG
-                cout <<"purchase: "<< item->getName() << " " << item->getPrice() << endl;
-#endif
                 treatedShop->purchase(item);
             }
         }
@@ -171,27 +132,16 @@ bool FamilyMart::solvePurchase(string fileName){
 }
 
 bool FamilyMart::solveSell(string fileName){
-#ifdef DEBUG
-//    for (int i = 0; i < 25; i++){
-//        this->shopList[0]->sell("test1",1);
-//    }
-#endif
     ifstream fileinput(fileName);
     string stringLine;
     Shop* treatedShop = this->shopList[0];
     float discount = 1;
     if (fileinput.is_open()){//file exists
         while (getline(fileinput, stringLine)){//get line
-#ifdef DEBUG
-            cout << stringLine << endl;
-#endif
             stringstream stringLineStream;
             string lineHead;
             stringLineStream << stringLine;
             stringLineStream >> lineHead;
-#ifdef DEBUG
- //           cout <<"linehead : " <<lineHead << endl;
-#endif
             if (lineHead.substr(0, 4) == "SALE"){
                 string discountString;
                 string shopname;
@@ -213,9 +163,6 @@ bool FamilyMart::solveSell(string fileName){
             } else {
                 treatedShop->sell(lineHead, discount);
                 treatedShop->changeSize(-1);
-#ifdef DEBUG
-                cout << this->shopList.size() << endl;
-#endif
                 if (this->getSaleAmount() >= (55 * this->shopList.size())){
                     this->newShop();
                 }
@@ -233,9 +180,6 @@ float FamilyMart::getSaleAmount() const{
     for (size_t i = 0; i < shopNumber; i++) {
         saleAmount += shopList[i]->getSaleAmount();
     }
-#ifdef DEBUG
-    cout << saleAmount << endl;
-#endif
     return saleAmount;
 }
 
@@ -253,9 +197,6 @@ string* FamilyMart::getShopName() const{
 }
 
 void FamilyMart::close() {
-#ifdef DEBUG
-    cout << "Family mart close" <<endl;
-#endif
     size_t shopNumber = this->shopList.size();
     for (int i = 0; i < shopNumber; ++i) {
         shopList[i]->shopClose();
