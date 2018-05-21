@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1526841615 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\familymart.cpp
+	<vector>
+	<iostream>
+	<fstream>
+	<sstream>
+	"FamilyMart.h"
+	"WarehouseUtil.h"
+	"Shop.h"
+
+1526841039 d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\familymart.h
+	"Shop.h"
+
+1526841137 d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\shop.h
+	"Item.h"
+	"Warehouse.h"
+
+1526800738 d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\item.h
+	<iostream>
+	<ctime>
+	<string>
+
+1526884501 d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\warehouse.h
+	"Item.h"
+	<map>
+	<queue>
+
+1526884387 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\item.cpp
+	<iostream>
+	<ctime>
+	"Item.h"
+
+1526841345 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\shop.cpp
+	"Shop.h"
+	"WarehouseUtil.h"
+
+1526825685 d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\warehouseutil.h
+	"Warehouse.h"
+
+1526825924 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\warehouse.cpp
+	<map>
+	"Item.h"
+	"Warehouse.h"
+	"WarehouseUtil.h"
+
+1526825808 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\warehouseutil.cpp
+	"WarehouseUtil.h"
+
+1526824333 source:d:\desktop\大二\面向对象程序设计\lab3\lab3\familymart\main.cpp
+	<iostream>
+	<ctime>
+	<sstream>
+	"Item.h"
+	"Warehouse.h"
+	"Shop.h"
+	"FamilyMart.h"
+
